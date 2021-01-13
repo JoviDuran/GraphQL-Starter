@@ -39,7 +39,7 @@
       }
     },
     {
-      "files": ["./src/db/seeds/**/*.ts", "./src/db/migrations/**/*.ts", "./src/db/helpers/**/*.ts"],
+      "files": ["./src/infrastructure/seeds/**/*.ts", "./src/infrastructure/migrations/**/*.ts", "./src/infrastructure/helpers/**/*.ts"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
       }

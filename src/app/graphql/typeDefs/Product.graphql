@@ -1,0 +1,38 @@
+type Product {
+  id: ID!
+  name: String!
+  price: Int!
+  stock: Int!
+}
+
+extend type Mutation {
+  createProduct(input: CreateProductInput!): CreateProductPayload!
+  updateProduct(input: UpdateProductInput!): UpdateProductPayload!
+}
+
+input CreateProductInput {
+  name: String!
+  price: Int!
+  stock: Int!
+}
+
+input UpdateProductInput {
+  id: ID!
+  name: String!
+  price: Int!
+  stock: Int!
+}
+
+type CreateProductPayload {
+  success: Boolean!
+  product: Product
+}
+
+type UpdateProductPayload {
+  success: Boolean!
+  product: Product
+}
+
+extend type Query {
+  product(id: ID!): Product
+}

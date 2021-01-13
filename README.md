@@ -141,11 +141,11 @@ Credentials:
 | **src/routes**/`<api-version>`/index.ts                                                         | Exports all routers for this api version to a single variable to be used by `src/routes/index.ts`.                                                                                                                                 |
 | **src/routes**/`<api-version>`/`<router-name>`.routes.ts                                        | Node Express Router files.                                                                                                                                                                                                         |
 | **src/routes**/index.ts                                                                         | Node Express Routes initialization.                                                                                                                                                                                                |
-| **src/utils**/`<utility-name>`.util.ts                                                          | Utility files.                                                                                                                                                                                                                     |
-| **src/utils**/async-handler.util.ts                                                             | Async wrapper for Node Express middlewares/controllers.                                                                                                                                                                            |
-| **src/utils**/bcrypt.util.ts                                                                    | Utility for generating salt/hash and verifying passwords.                                                                                                                                                                          |
-| **src/utils**/jwt.util.ts                                                                       | Utility for JWT verification and generation.                                                                                                                                                                                       |
-| **src/utils**/logger.util.ts                                                                    | Logging utility. Make sure to use the `logger` function if you want logs go to the `logs/*.log`.                                                                                                                                   |
+| **src/app/utils**/`<utility-name>`.util.ts                                                      | Utility files.                                                                                                                                                                                                                     |
+| **src/app/utils**/async-handler.util.ts                                                         | Async wrapper for Node Express middlewares/controllers.                                                                                                                                                                            |
+| **src/app/utils**/bcrypt.util.ts                                                                | Utility for generating salt/hash and verifying passwords.                                                                                                                                                                          |
+| **src/app/utils**/jwt.util.ts                                                                   | Utility for JWT verification and generation.                                                                                                                                                                                       |
+| **src/app/utils**/logger.util.ts                                                                | Logging utility. Make sure to use the `logger` function if you want logs go to the `logs/*.log`.                                                                                                                                   |
 | **src/app.ts**                                                                                  | Main application file.                                                                                                                                                                                                             |
 | **types**/app-graphql-schema-types.d.ts                                                         | Auto generated types and interfaces by GraphQL Code Generator based on GraphQL Schema files defined at `src/graphql/typeDefs`.                                                                                                     |
 | .dockerignore                                                                                   | Folder and files ignored by Docker.                                                                                                                                                                                                |
@@ -265,18 +265,18 @@ The folder structure of this project is mainly functionality-based so it should 
 ### Create a migration script with KnexJS for your database table
 
 1. Run `npm run migrate:make <script_name>`.
-1. Go to the generated script at `src/db/migrations/<your_script>.ts`.
+1. Go to the generated script at `src/infrastructure/migrations/<your_script>.ts`.
 1. Populate the script accordingly. Use the `addTimestamps.ts` helper if you need timestamps for your table.
 
 ### (Optional) Create a seed script with KnexJS
 
 1. Run `npm run seed:make <script_name>`.
-1. Go to the generated script at `src/db/seeds/<your_script>.ts`.
+1. Go to the generated script at `src/infrastructure/seeds/<your_script>.ts`.
 1. Populate the script accordingly.
 
 ### Create the corresponding ObjectionJS model
 
-1. Create a TS file at `src/db/models/`.
+1. Create a TS file at `src/infrastructure/models/`.
 1. Populate the file accordingly.
    - Make sure to set the static `tableName` property.
    - (Optional) Set the static `relationMappings` property if applicable. See ObjectionJS docs for more details.

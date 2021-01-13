@@ -1,0 +1,5 @@
+type OrderItem {
+  product: Product!
+  quantity: Int!
+  unitPrice: Int!
+}

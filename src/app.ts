@@ -1,11 +1,10 @@
 import 'tsconfig-paths/register';
 import { env } from '@app/config/environment';
 
-import { errorMiddleware, httpLogger, expressStatusMonitorMiddleware, corsMiddleware, sessionMiddleware } from '@app/middleware';
-import { ping as pingPostgresDatabase } from './db/knex';
-import { pingRedisDatabase } from './redis/client';
-import { initRoutes } from './routes';
-import { initApolloGraphqlServer } from './graphql';
+import { errorMiddleware, httpLogger, expressStatusMonitorMiddleware, corsMiddleware, sessionMiddleware } from 'src/app/middleware';
+import { ping as pingPostgresDatabase } from './infrastructure/knex';
+import { pingRedisDatabase } from 'src/app/redis/client';
+import { initApolloGraphqlServer } from 'src/app/graphql';
 
 import { createServer } from 'http';
 import compression from 'compression';
@@ -14,7 +13,8 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 
 import passport from 'passport';
-import './passport-strategies';
+import './app/passport-strategies';
+import { initRoutes } from './app/routes';
 
 const app = express();
 

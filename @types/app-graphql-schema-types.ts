@@ -1,9 +1,9 @@
 /* eslint-disable */
-import { SortDirection } from '../src/graphql/enums/index';
-import { UserSortField } from '../src/graphql/enums/index';
-import { FileUpload } from '../src/graphql/scalars/Upload.scalar';
+import { SortDirection } from '../src/app/graphql/enums/index';
+import { UserSortField } from '../src/app/graphql/enums/index';
+import { FileUpload } from '../src/app/graphql/scalars/Upload.scalar';
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { IGraphQLContext } from '../src/graphql/index';
+import { IGraphQLContext } from '../src/app/graphql/index';
 export type Maybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -27,11 +27,19 @@ export type GQL_Mutation = {
   __typename?: 'Mutation';
   /** @deprecated Field no longer supported */
   _dummy?: Maybe<Scalars['String']>;
+  createProduct: GQL_CreateProductPayload;
   login?: Maybe<GQL_LoginPayload>;
   logout: Scalars['Boolean'];
   multipleUpload: Array<GQL_File>;
+  placeOrder?: Maybe<GQL_PlaceOrderPayload>;
   register?: Maybe<GQL_RegisterPayload>;
   singleUpload: GQL_File;
+  updateProduct: GQL_UpdateProductPayload;
+};
+
+
+export type GQL_MutationCreateProductArgs = {
+  input: GQL_CreateProductInput;
 };
 
 
@@ -45,6 +53,11 @@ export type GQL_MutationMultipleUploadArgs = {
 };
 
 
+export type GQL_MutationPlaceOrderArgs = {
+  input: GQL_PlaceOrderInput;
+};
+
+
 export type GQL_MutationRegisterArgs = {
   input: GQL_RegisterInput;
 };
@@ -52,6 +65,11 @@ export type GQL_MutationRegisterArgs = {
 
 export type GQL_MutationSingleUploadArgs = {
   file: Scalars['Upload'];
+};
+
+
+export type GQL_MutationUpdateProductArgs = {
+  input: GQL_UpdateProductInput;
 };
 
 export type GQL_RegisterInput = {
@@ -91,12 +109,24 @@ export type GQL_Query = {
   /** @deprecated Field no longer supported */
   _sampleTimeScalar?: Maybe<Scalars['Time']>;
   node?: Maybe<GQL_Node>;
+  order?: Maybe<GQL_Order>;
+  product?: Maybe<GQL_Product>;
   users: GQL_UserConnection;
 };
 
 
 export type GQL_QueryNodeArgs = {
   id: Scalars['GUID'];
+};
+
+
+export type GQL_QueryOrderArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type GQL_QueryProductArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -126,6 +156,74 @@ export type GQL_File = {
   filename: Scalars['String'];
   mimetype: Scalars['String'];
   encoding: Scalars['String'];
+};
+
+export type GQL_Order = {
+  __typename?: 'Order';
+  id: Scalars['ID'];
+  orderItems: Array<GQL_OrderItem>;
+  customerName: Scalars['String'];
+  date?: Maybe<Scalars['DateTime']>;
+  address?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+};
+
+export type GQL_PlaceOrderInput = {
+  orderItems: Array<GQL_OrderItemInput>;
+  customerName: Scalars['String'];
+  address: Scalars['String'];
+  email: Scalars['String'];
+};
+
+export type GQL_OrderItemInput = {
+  productId: Scalars['ID'];
+  quantity: Scalars['Int'];
+};
+
+export type GQL_PlaceOrderPayload = {
+  __typename?: 'PlaceOrderPayload';
+  success: Scalars['Boolean'];
+  order?: Maybe<GQL_Order>;
+};
+
+export type GQL_OrderItem = {
+  __typename?: 'OrderItem';
+  product: GQL_Product;
+  quantity: Scalars['Int'];
+  unitPrice: Scalars['Int'];
+};
+
+export type GQL_Product = {
+  __typename?: 'Product';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  stock: Scalars['Int'];
+};
+
+export type GQL_CreateProductInput = {
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  stock: Scalars['Int'];
+};
+
+export type GQL_UpdateProductInput = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  stock: Scalars['Int'];
+};
+
+export type GQL_CreateProductPayload = {
+  __typename?: 'CreateProductPayload';
+  success: Scalars['Boolean'];
+  product?: Maybe<GQL_Product>;
+};
+
+export type GQL_UpdateProductPayload = {
+  __typename?: 'UpdateProductPayload';
+  success: Scalars['Boolean'];
+  product?: Maybe<GQL_Product>;
 };
 
 export type GQL_Subscription = {
@@ -266,11 +364,22 @@ export type GQL_ResolversTypes = {
   RegisterPayload: ResolverTypeWrapper<GQL_RegisterPayload>;
   LoginPayload: ResolverTypeWrapper<GQL_LoginPayload>;
   Query: ResolverTypeWrapper<{}>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Node: GQL_ResolversTypes['User'];
   PageInfo: ResolverTypeWrapper<GQL_PageInfo>;
   SortDirection: SortDirection;
   File: ResolverTypeWrapper<GQL_File>;
+  Order: ResolverTypeWrapper<GQL_Order>;
+  PlaceOrderInput: GQL_PlaceOrderInput;
+  OrderItemInput: GQL_OrderItemInput;
+  PlaceOrderPayload: ResolverTypeWrapper<GQL_PlaceOrderPayload>;
+  OrderItem: ResolverTypeWrapper<GQL_OrderItem>;
+  Product: ResolverTypeWrapper<GQL_Product>;
+  CreateProductInput: GQL_CreateProductInput;
+  UpdateProductInput: GQL_UpdateProductInput;
+  CreateProductPayload: ResolverTypeWrapper<GQL_CreateProductPayload>;
+  UpdateProductPayload: ResolverTypeWrapper<GQL_UpdateProductPayload>;
   Subscription: ResolverTypeWrapper<{}>;
   DummySubscriptionPayload: ResolverTypeWrapper<GQL_DummySubscriptionPayload>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
@@ -296,10 +405,21 @@ export type GQL_ResolversParentTypes = {
   RegisterPayload: GQL_RegisterPayload;
   LoginPayload: GQL_LoginPayload;
   Query: {};
+  ID: Scalars['ID'];
   Int: Scalars['Int'];
   Node: GQL_ResolversParentTypes['User'];
   PageInfo: GQL_PageInfo;
   File: GQL_File;
+  Order: GQL_Order;
+  PlaceOrderInput: GQL_PlaceOrderInput;
+  OrderItemInput: GQL_OrderItemInput;
+  PlaceOrderPayload: GQL_PlaceOrderPayload;
+  OrderItem: GQL_OrderItem;
+  Product: GQL_Product;
+  CreateProductInput: GQL_CreateProductInput;
+  UpdateProductInput: GQL_UpdateProductInput;
+  CreateProductPayload: GQL_CreateProductPayload;
+  UpdateProductPayload: GQL_UpdateProductPayload;
   Subscription: {};
   DummySubscriptionPayload: GQL_DummySubscriptionPayload;
   DateTime: Scalars['DateTime'];
@@ -316,11 +436,14 @@ export type GQL_ResolversParentTypes = {
 
 export type GQL_MutationResolvers<ContextType = IGraphQLContext, ParentType extends GQL_ResolversParentTypes['Mutation'] = GQL_ResolversParentTypes['Mutation']> = {
   _dummy?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>;
+  createProduct?: Resolver<GQL_ResolversTypes['CreateProductPayload'], ParentType, ContextType, RequireFields<GQL_MutationCreateProductArgs, 'input'>>;
   login?: Resolver<Maybe<GQL_ResolversTypes['LoginPayload']>, ParentType, ContextType, RequireFields<GQL_MutationLoginArgs, 'input'>>;
   logout?: Resolver<GQL_ResolversTypes['Boolean'], ParentType, ContextType>;
   multipleUpload?: Resolver<Array<GQL_ResolversTypes['File']>, ParentType, ContextType, RequireFields<GQL_MutationMultipleUploadArgs, 'files'>>;
+  placeOrder?: Resolver<Maybe<GQL_ResolversTypes['PlaceOrderPayload']>, ParentType, ContextType, RequireFields<GQL_MutationPlaceOrderArgs, 'input'>>;
   register?: Resolver<Maybe<GQL_ResolversTypes['RegisterPayload']>, ParentType, ContextType, RequireFields<GQL_MutationRegisterArgs, 'input'>>;
   singleUpload?: Resolver<GQL_ResolversTypes['File'], ParentType, ContextType, RequireFields<GQL_MutationSingleUploadArgs, 'file'>>;
+  updateProduct?: Resolver<GQL_ResolversTypes['UpdateProductPayload'], ParentType, ContextType, RequireFields<GQL_MutationUpdateProductArgs, 'input'>>;
 };
 
 export type GQL_RegisterPayloadResolvers<ContextType = IGraphQLContext, ParentType extends GQL_ResolversParentTypes['RegisterPayload'] = GQL_ResolversParentTypes['RegisterPayload']> = {
@@ -340,6 +463,8 @@ export type GQL_QueryResolvers<ContextType = IGraphQLContext, ParentType extends
   _sampleDateTimeScalar?: Resolver<Maybe<GQL_ResolversTypes['DateTime']>, ParentType, ContextType>;
   _sampleTimeScalar?: Resolver<Maybe<GQL_ResolversTypes['Time']>, ParentType, ContextType>;
   node?: Resolver<Maybe<GQL_ResolversTypes['Node']>, ParentType, ContextType, RequireFields<GQL_QueryNodeArgs, 'id'>>;
+  order?: Resolver<Maybe<GQL_ResolversTypes['Order']>, ParentType, ContextType, RequireFields<GQL_QueryOrderArgs, 'id'>>;
+  product?: Resolver<Maybe<GQL_ResolversTypes['Product']>, ParentType, ContextType, RequireFields<GQL_QueryProductArgs, 'id'>>;
   users?: Resolver<GQL_ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<GQL_QueryUsersArgs, 'first'>>;
 };
 
@@ -362,6 +487,49 @@ export type GQL_FileResolvers<ContextType = IGraphQLContext, ParentType extends 
   filename?: Resolver<GQL_ResolversTypes['String'], ParentType, ContextType>;
   mimetype?: Resolver<GQL_ResolversTypes['String'], ParentType, ContextType>;
   encoding?: Resolver<GQL_ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GQL_OrderResolvers<ContextType = IGraphQLContext, ParentType extends GQL_ResolversParentTypes['Order'] = GQL_ResolversParentTypes['Order']> = {
+  id?: Resolver<GQL_ResolversTypes['ID'], ParentType, ContextType>;
+  orderItems?: Resolver<Array<GQL_ResolversTypes['OrderItem']>, ParentType, ContextType>;
+  customerName?: Resolver<GQL_ResolversTypes['String'], ParentType, ContextType>;
+  date?: Resolver<Maybe<GQL_ResolversTypes['DateTime']>, ParentType, ContextType>;
+  address?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<Maybe<GQL_ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GQL_PlaceOrderPayloadResolvers<ContextType = IGraphQLContext, ParentType extends GQL_ResolversParentTypes['PlaceOrderPayload'] = GQL_ResolversParentTypes['PlaceOrderPayload']> = {
+  success?: Resolver<GQL_ResolversTypes['Boolean'], ParentType, ContextType>;
+  order?: Resolver<Maybe<GQL_ResolversTypes['Order']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GQL_OrderItemResolvers<ContextType = IGraphQLContext, ParentType extends GQL_ResolversParentTypes['OrderItem'] = GQL_ResolversParentTypes['OrderItem']> = {
+  product?: Resolver<GQL_ResolversTypes['Product'], ParentType, ContextType>;
+  quantity?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>;
+  unitPrice?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GQL_ProductResolvers<ContextType = IGraphQLContext, ParentType extends GQL_ResolversParentTypes['Product'] = GQL_ResolversParentTypes['Product']> = {
+  id?: Resolver<GQL_ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<GQL_ResolversTypes['String'], ParentType, ContextType>;
+  price?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>;
+  stock?: Resolver<GQL_ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GQL_CreateProductPayloadResolvers<ContextType = IGraphQLContext, ParentType extends GQL_ResolversParentTypes['CreateProductPayload'] = GQL_ResolversParentTypes['CreateProductPayload']> = {
+  success?: Resolver<GQL_ResolversTypes['Boolean'], ParentType, ContextType>;
+  product?: Resolver<Maybe<GQL_ResolversTypes['Product']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type GQL_UpdateProductPayloadResolvers<ContextType = IGraphQLContext, ParentType extends GQL_ResolversParentTypes['UpdateProductPayload'] = GQL_ResolversParentTypes['UpdateProductPayload']> = {
+  success?: Resolver<GQL_ResolversTypes['Boolean'], ParentType, ContextType>;
+  product?: Resolver<Maybe<GQL_ResolversTypes['Product']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -437,6 +605,12 @@ export type GQL_Resolvers<ContextType = IGraphQLContext> = {
   PageInfo?: GQL_PageInfoResolvers<ContextType>;
   SortDirection?: GQL_SortDirectionResolvers;
   File?: GQL_FileResolvers<ContextType>;
+  Order?: GQL_OrderResolvers<ContextType>;
+  PlaceOrderPayload?: GQL_PlaceOrderPayloadResolvers<ContextType>;
+  OrderItem?: GQL_OrderItemResolvers<ContextType>;
+  Product?: GQL_ProductResolvers<ContextType>;
+  CreateProductPayload?: GQL_CreateProductPayloadResolvers<ContextType>;
+  UpdateProductPayload?: GQL_UpdateProductPayloadResolvers<ContextType>;
   Subscription?: GQL_SubscriptionResolvers<ContextType>;
   DummySubscriptionPayload?: GQL_DummySubscriptionPayloadResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
