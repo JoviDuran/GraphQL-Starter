@@ -1,9 +1,9 @@
 import session from 'express-session';
 import { env } from '@app/config/environment';
 import { sessionOptions } from '@app/config/session-options';
-import { redisClient } from 'src/app/redis/client';
 import { RedisStore as IRedisStore } from 'connect-redis';
 import { RequestHandler } from 'express';
+import { redisClient } from '../redis/client';
 
 const RedisStore: IRedisStore = require('connect-redis')(session);
 

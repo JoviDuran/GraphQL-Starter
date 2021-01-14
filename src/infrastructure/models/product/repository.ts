@@ -1,7 +1,7 @@
-import { GQL_CreateProductInput } from 'app-graphql-schema-types';
+import { IProductCreateModel } from './product-create.model';
 import { ProductModel } from './product.model';
 
-function create(product: GQL_CreateProductInput): Promise<ProductModel> {
+function create(product: IProductCreateModel) {
   return ProductModel.query().insertAndFetch(product);
 }
 

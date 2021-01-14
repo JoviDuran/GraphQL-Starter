@@ -1,6 +1,9 @@
 import { productRepository } from '@app/infrastructure';
-import { GQL_CreateProductInput } from 'app-graphql-schema-types';
+import { productFactory } from 'src/factories';
+import { IProductCreate } from './product';
 
-export function createProduct(product: GQL_CreateProductInput) {
-  return productRepository.create(product);
+export async function createProduct(product: IProductCreate) {
+  const createdProduct = await productRepository.create(productFactory.toDbModelCreate(product));
+
+  return productFactory.toDomain(createdProduct);
 }

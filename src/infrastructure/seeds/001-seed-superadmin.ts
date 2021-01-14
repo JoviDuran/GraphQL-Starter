@@ -1,5 +1,5 @@
 import * as Knex from 'knex';
-import { bcryptUtil } from 'src/app/utils';
+import { bcryptUtil } from '@app/utils';
 import { UserModel, SystemRoleModel } from '@app/infrastructure/models';
 import { PartialModelObject } from 'objection';
 
