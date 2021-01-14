@@ -20,7 +20,7 @@
       "@app/graphql-schema-types": ["@types/app-graphql-schema-types"],
       "@app/config/*": ["./src/app/config/*"],
       "@app/middleware": ["./src/app/middleware"],
-      "@app/utils": ["./src/app/utils"],
+      "@app/utils": ["src/app/utils"],
       "@app/controllers": ["./src/app/controllers"],
       "@app/infrastructure/models": ["./src/infrastructure/models"],
       "@app/core/authorization": ["./src/app/core/authorization"],
