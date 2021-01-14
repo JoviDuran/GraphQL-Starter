@@ -33,6 +33,8 @@ export class ProductModel extends BaseModel {
   name!: string;
   price!: number;
   stock!: number;
+  quantity!: number;
+
   createdAt!: Date;
   updatedAt!: Date;
 

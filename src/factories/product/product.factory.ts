@@ -1,6 +1,6 @@
 import { GQL_CreateProductInput, GQL_Product } from 'app-graphql-schema-types';
 import { IProductCreate, Product } from 'src/domain';
-import { IProductCreateModel, ProductModel } from 'src/infrastructure';
+import { IProductCreateModel, ProductModel } from 'src/infrastructure/models/product';
 
 function toDomainCreate(productCreateGql: GQL_CreateProductInput) {
   const { name, price, stock } = productCreateGql;

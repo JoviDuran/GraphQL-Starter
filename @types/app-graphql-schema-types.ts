@@ -178,6 +178,7 @@ export type GQL_PlaceOrderInput = {
 export type GQL_OrderItemInput = {
   productId: Scalars['ID'];
   quantity: Scalars['Int'];
+  unitPrice: Scalars['Int'];
 };
 
 export type GQL_PlaceOrderPayload = {

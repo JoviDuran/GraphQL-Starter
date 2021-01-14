@@ -1,8 +1,9 @@
-import { GQL_PlaceOrderInput } from 'app-graphql-schema-types';
-import { orderRepository } from 'src/infrastructure';
+import { orderFactory } from 'src/factories/order';
+import { orderRepository } from 'src/infrastructure/models/order';
+import { IOrderCreate } from './order';
 
-export function createOrder(order: GQL_PlaceOrderInput) {
-  // call orderFactory
-  // pass object to order repository
-  return orderRepository.create(order);
+export async function createOrder(order: IOrderCreate) {
+  const createdOrder = await orderRepository.create(orderFactory.toDbModelCreate(order));
+
+  return orderFactory.toDomain(createdOrder);
 }

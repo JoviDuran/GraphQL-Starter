@@ -1,7 +1,7 @@
-import { GQL_PlaceOrderInput } from 'app-graphql-schema-types';
+import { IOrderCreateModel } from './order-create.model';
 import { OrderModel } from './order.model';
 
-async function create(order: GQL_PlaceOrderInput) {
+async function create(order: IOrderCreateModel) {
   return OrderModel.query().insertAndFetch(order);
 }
 

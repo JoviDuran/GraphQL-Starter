@@ -1,5 +1,5 @@
-import { productRepository } from '@app/infrastructure';
 import { productFactory } from 'src/factories';
+import { productRepository } from 'src/infrastructure/models/product';
 import { IProductCreate } from './product';
 
 export async function createProduct(product: IProductCreate) {

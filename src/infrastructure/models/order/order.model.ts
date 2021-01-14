@@ -1,7 +1,7 @@
 import { BaseModel } from '../common/base-model';
 import { RelationMappings, Model } from 'objection';
-import { ProductModel } from '../product/product.model';
 import * as yup from 'yup';
+import { ProductModel } from '../product';
 
 export class OrderModel extends BaseModel {
   static tableName = 'order';
@@ -34,7 +34,7 @@ export class OrderModel extends BaseModel {
   customerName!: string;
   address!: string;
   email!: string;
+  products!: ProductModel[];
   createdAt!: Date;
   updatedAt!: Date;
-  products!: ProductModel[];
 }

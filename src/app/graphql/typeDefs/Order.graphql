@@ -25,6 +25,7 @@ input PlaceOrderInput {
 input OrderItemInput {
   productId: ID!
   quantity: Int!
+  unitPrice: Int!
 }
 
 type PlaceOrderPayload {
