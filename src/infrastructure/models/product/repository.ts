@@ -1,7 +1,7 @@
-import { Product } from 'src/domain/entity';
+import { GQL_CreateProductInput } from 'app-graphql-schema-types';
 import { ProductModel } from './product.model';
 
-async function create(product: Partial<Product>) {
+function create(product: GQL_CreateProductInput): Promise<ProductModel> {
   return ProductModel.query().insertAndFetch(product);
 }
 

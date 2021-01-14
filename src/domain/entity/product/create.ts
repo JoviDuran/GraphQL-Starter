@@ -1,6 +1,6 @@
 import { productRepository } from '@app/infrastructure';
-import { Product } from './Product';
+import { GQL_CreateProductInput } from 'app-graphql-schema-types';
 
-export async function createProduct(user: Partial<Product>) {
-  return productRepository.create(user);
+export function createProduct(product: GQL_CreateProductInput) {
+  return productRepository.create(product);
 }
