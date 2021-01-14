@@ -1,5 +1,5 @@
 import morgan from 'morgan';
-import { httpAccessLogger } from 'src/app/utils';
+import { httpAccessLogger } from '@app/utils';
 
 const stream: morgan.StreamOptions = {
   write: (message) => httpAccessLogger.info(message.substring(0, message.lastIndexOf('\n'))),

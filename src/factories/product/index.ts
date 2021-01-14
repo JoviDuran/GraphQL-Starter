@@ -1,1 +1,1 @@
-export * from './product.domain.factory';
+export * from './product.factory';
