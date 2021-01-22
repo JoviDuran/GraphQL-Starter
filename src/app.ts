@@ -3,7 +3,7 @@ import { env } from '@app/config/environment';
 
 import { errorMiddleware, httpLogger, expressStatusMonitorMiddleware, corsMiddleware, sessionMiddleware } from 'src/app/middleware';
 import { ping as pingPostgresDatabase } from './infrastructure/knex';
-import { pingRedisDatabase } from 'src/app/redis/client';
+import { pingRedisDatabase } from 'src/infrastructure/redis/client';
 import { initApolloGraphqlServer } from 'src/app/graphql';
 
 import { createServer } from 'http';

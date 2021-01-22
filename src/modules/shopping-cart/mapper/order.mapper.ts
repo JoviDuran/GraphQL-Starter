@@ -1,6 +1,6 @@
 import { GQL_Order, GQL_PlaceOrderInput } from 'app-graphql-schema-types';
-import { IOrderCreate, Order } from 'src/domain';
 import { IOrderCreateModel, OrderModel } from 'src/infrastructure/models/order';
+import { IOrderCreate, Order, OrderItem } from '../domain';
 
 function toDomainCreate(createOrderGql: GQL_PlaceOrderInput) {
   const { customerName, address, email, orderItems } = createOrderGql;
@@ -31,10 +31,10 @@ function toDomain(orderModel: OrderModel) {
     customerName,
     address,
     email,
-    orderItems: products.map((x) => {
+    orderItems: products.map<OrderItem>((x) => {
       const orderItem = {
         product: x,
-        unitPrice: x.price,
+        unitPrice: x.unitPrice,
         quantity: x.quantity,
       };
       return orderItem;
@@ -57,7 +57,7 @@ function toGql(orderDomain: Order) {
   return order;
 }
 
-export const orderFactory = {
+export const orderMapper = {
   toDomainCreate,
   toDbModelCreate,
   toDomain,

@@ -3,7 +3,7 @@ import { env } from '@app/config/environment';
 import { sessionOptions } from '@app/config/session-options';
 import { RedisStore as IRedisStore } from 'connect-redis';
 import { RequestHandler } from 'express';
-import { redisClient } from '../redis/client';
+import { redisClient } from '../../infrastructure/redis/client';
 
 const RedisStore: IRedisStore = require('connect-redis')(session);
 

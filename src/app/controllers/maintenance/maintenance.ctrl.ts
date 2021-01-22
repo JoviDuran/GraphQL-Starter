@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { ping as pingPostgresDatabase } from 'src/infrastructure/knex';
 import { logger } from 'src/app/utils';
-import { pingRedisDatabase } from '../../redis/client';
+import { pingRedisDatabase } from '../../../infrastructure/redis/client';
 
 const healthCheck: RequestHandler = async (req, res) => {
   const now = new Date();

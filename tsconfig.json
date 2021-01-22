@@ -34,8 +34,7 @@
       "@app/yup-schemas": ["./src/app/graphql-shield/yup-validation-schemas"],
       "@app/error-handler/*": ["./src/app/core/error-handler/*"],
       "@app/infrastructure": ["./src/infrastructure"],
-      "@app/domain": ["./src/domain"],
-      "@app/factories": ["./src/factories"]
+      "@app/domain": ["./src/domain"]
     },
 
     "esModuleInterop": true,
