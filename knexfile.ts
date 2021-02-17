@@ -1,16 +1,16 @@
 import { Config } from 'knex';
-import { env } from './src/app/config/environment';
+import { env } from './src/config/environment';
 
 const config: Config = {
   client: 'pg',
   connection: env.postgresConnectionUrl,
   useNullAsDefault: true,
   migrations: {
-    directory: './src/infrastructure/migrations',
+    directory: './src/db/migrations',
     loadExtensions: ['.js', '.ts'],
   },
   seeds: {
-    directory: './src/infrastructure/seeds',
+    directory: './src/db/seeds',
   },
 
   // Modify this if you want to see the actual SQL queries executed thru knex

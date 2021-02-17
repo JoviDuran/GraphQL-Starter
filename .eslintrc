@@ -33,25 +33,25 @@
   },
   "overrides": [
     {
-      "files": ["./src/app/graphql-dataloaders/**/*.ts"],
+      "files": ["./src/graphql-dataloaders/**/*.ts"],
       "rules": {
         "@typescript-eslint/explicit-module-boundary-types": "off"
       }
     },
     {
-      "files": ["./src/infrastructure/seeds/**/*.ts", "./src/infrastructure/migrations/**/*.ts", "./src/infrastructure/helpers/**/*.ts"],
+      "files": ["./src/db/seeds/**/*.ts", "./src/db/migrations/**/*.ts", "./src/db/helpers/**/*.ts"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
       }
     },
     {
-      "files": ["./src/app/core/factories/**/*.ts"],
+      "files": ["./src/core/factories/**/*.ts"],
       "rules": {
         "@typescript-eslint/naming-convention": "off"
       }
     },
     {
-      "files": ["./src/app/config/**/*.ts"],
+      "files": ["./src/config/**/*.ts"],
       "rules": {
         "@typescript-eslint/no-non-null-assertion": "off"
       }

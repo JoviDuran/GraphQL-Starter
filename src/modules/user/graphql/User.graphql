@@ -1,0 +1,39 @@
+type User implements Node {
+  id: GUID!
+  firstName: String
+  middleName: String
+  lastName: String
+  fullName: String
+  username: String
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  permissions: JSON
+}
+
+extend type Mutation {
+  updateUser(input: UpdateUserInput!): UpdateUserPayload!
+  deleteUser(id: ID!): DeleteUserPayload!
+}
+
+type UpdateUserPayload {
+  isSuccessful: Boolean
+  user: User
+}
+
+type DeleteUserPayload {
+  isSuccessful: Boolean
+}
+
+input UpdateUserInput {
+  id: String!
+  firstName: String!
+  middleName: String!
+  lastName: String!
+  username: String!
+  email: String!
+}
+
+input DeleteUserInput {
+  id: ID!
+}

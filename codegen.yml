@@ -1,5 +1,7 @@
 overwrite: true
-schema: './src/app/graphql/typeDefs/*.graphql'
+schema:
+  - './src/graphql/typeDefs/*.graphql'
+  - './src/modules/**/graphql/*.graphql'
 documents: null
 require:
   - ts-node/register
@@ -9,10 +11,10 @@ generates:
     config:
       typesPrefix: GQL_
       maybeValue: T | null | undefined
-      contextType: '../src/app/graphql/index#IGraphQLContext'
-      enumValues: '../src/app/graphql/enums/index'
+      contextType: '../src/graphql.index#IGraphQLContext'
+      enumValues: '../src/modules/common/graphql/enums/index'
       scalars:
-        Upload: ../src/app/graphql/scalars/Upload.scalar#FileUpload
+        Upload: ../src/modules/common/graphql/scalars/Upload.scalar#FileUpload
         DateTime: Date
         Time: Date
         Date: Date
